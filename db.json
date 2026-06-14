@@ -1,0 +1,82 @@
+{
+  "contacts": [
+    {
+      "id": "1",
+      "name": "Rauf Ahmed",
+      "email": "rauf.ahmed@example.com",
+      "phone": "+923001234567",
+      "category": "Work",
+      "company": "Tech Solutions",
+      "notes": "Project manager for the web development team.",
+      "status": "Active",
+      "createdAt": "2026-06-05T10:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "Ayesha Khan",
+      "email": "ayesha.k@example.com",
+      "phone": "+923219876543",
+      "category": "Personal",
+      "company": "Self-employed",
+      "status": "Active",
+      "notes": "Graphic designer friend from university.",
+      "createdAt": "2026-06-05T10:15:00.000Z"
+    },
+    {
+      "id": "3",
+      "name": "Zain Ali",
+      "email": "zain.ali@example.com",
+      "phone": "+923334567890",
+      "category": "Family",
+      "company": "N/A",
+      "notes": "Cousin - contact for family gatherings.",
+      "status": "Active",
+      "createdAt": "2026-06-05T10:30:00.000Z"
+    },
+    {
+      "id": "4",
+      "name": "Sarah Connor",
+      "email": "sconnor@skynet.com",
+      "phone": "+15559876542",
+      "category": "Work",
+      "company": "Cyberdyne Systems",
+      "notes": "Important client liaison for the robotics project.",
+      "status": "Archived",
+      "createdAt": "2026-06-05T10:45:00.000Z"
+    },
+    {
+      "id": "5",
+      "name": "Dr. Hamza Malik",
+      "email": "hamza.malik@hospital.org",
+      "phone": "+923456789123",
+      "category": "Other",
+      "company": "City Hospital",
+      "notes": "Family physician, available for emergencies.",
+      "status": "Active",
+      "createdAt": "2026-06-05T11:00:00.000Z"
+    },
+    {
+      "id": "6",
+      "name": "Bilal Siddiqui",
+      "email": "bilal.s@startup.co",
+      "phone": "+923123456789",
+      "category": "Work",
+      "company": "InnoTech",
+      "notes": "Lead developer. Collaborator on open-source project.",
+      "status": "Active",
+      "createdAt": "2026-06-05T11:15:00.000Z"
+    },
+    {
+      "name": "Mujahid Ali",
+      "email": "mujahid@gmail.com",
+      "phone": "0303-66474784",
+      "category": "Personal",
+      "company": "university",
+      "notes": "",
+      "status": "Active",
+      "createdAt": "2026-06-05T10:18:25.663Z",
+      "id": "ZTBA7pEQtJ0"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
