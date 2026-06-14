@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Admin Control Center - Manage system contacts, analyze statistics, edit resources, and handle record deletion.">
+  <title>Smart Contact Manager | Admin Dashboard</title>
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-theme">
+
+  <!-- Navigation Bar -->
+  <nav class="navbar" aria-label="Admin Navigation">
+    <div class="nav-container">
+      <div class="brand">
+        <!-- SVG Admin Key Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+        <span>Smart</span>Contact <span class="admin-badge">Admin</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html">Contacts</a>
+        <a href="admin.html" class="active" aria-current="page">Admin Dashboard</a>
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark/light theme" title="Toggle Theme">
+          <svg id="theme-toggle-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content Container -->
+  <main class="container">
+    
+    <!-- Admin Page Header -->
+    <header class="page-header">
+      <div>
+        <h1>Admin Control Panel</h1>
+      </div>
+    </header>
+    <p class="page-description">Review analytical insights, edit client profiles, and prune database directories.</p>
+
+    <!-- Error State Banner (hidden by default) -->
+    <div id="error-container" aria-live="assertive"></div>
+
+    <!-- 1. Statistics Panel (At least 3 Summary Statistics) -->
+    <section class="stats-grid" aria-label="Summary Statistics Dashboard">
+      
+      <!-- Stat 1: Total Contacts Count -->
+      <article class="stat-card">
+        <div class="stat-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+        </div>
+        <div class="stat-details">
+          <div class="stat-value" id="stat-total-contacts">-</div>
+          <div class="stat-label">Total Contacts</div>
+        </div>
+      </article>
+
+      <!-- Stat 2: Active vs Archived Ratio -->
+      <article class="stat-card">
+        <div class="stat-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+        </div>
+        <div class="stat-details">
+          <div class="stat-value" id="stat-status-ratio">-</div>
+          <div class="stat-label">Active / Archived Records</div>
+        </div>
+      </article>
+
+      <!-- Stat 3: Category Distribution (represented as progress bars) -->
+      <article class="stat-card">
+        <div class="stat-details" style="width: 100%;">
+          <div class="stat-label" style="font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase;">Category Distribution</div>
+          <div class="category-bars" id="stat-category-distribution">
+            <!-- Rendered dynamically by admin.js -->
+            <div class="bar-item">Loading stats...</div>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- 2. Contacts Datatable (Full CRUD view) -->
+    <section aria-label="Database Administration Table">
+      <div class="table-responsive">
+        <table class="contacts-table">
+          <thead>
+            <tr>
+              <th scope="col">Contact Details</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Category</th>
+              <th scope="col">Status</th>
+              <th scope="col" style="width: 120px;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-table-body">
+            <!-- Populated dynamically by admin.js -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Edit Contact Modal Dialog -->
+  <div id="edit-contact-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="edit-modal-title" aria-hidden="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="edit-modal-title">Edit Contact Details</h2>
+        <button id="close-edit-modal-btn" class="modal-close-btn" aria-label="Close modal" title="Close">&times;</button>
+      </div>
+      
+      <!-- Form to update a resource (PUT/PATCH) -->
+      <form id="edit-contact-form" novalidate>
+        
+        <!-- Track resource ID in hidden field -->
+        <input type="hidden" id="edit-contact-id" name="id">
+
+        <!-- Input 1: Full Name (Validation check) -->
+        <div class="form-group">
+          <label for="edit-contact-name" class="form-label">Full Name *</label>
+          <input 
+            type="text" 
+            id="edit-contact-name" 
+            name="name" 
+            class="form-control" 
+            required
+          >
+          <span id="edit-name-error" class="form-error-msg" aria-live="polite">Please enter a valid name (at least 3 characters, letters only).</span>
+        </div>
+
+        <!-- Input 2: Email Address -->
+        <div class="form-group">
+          <label for="edit-contact-email" class="form-label">Email Address *</label>
+          <input 
+            type="email" 
+            id="edit-contact-email" 
+            name="email" 
+            class="form-control" 
+            required
+          >
+          <span id="edit-email-error" class="form-error-msg" aria-live="polite">Please enter a valid email address.</span>
+        </div>
+
+        <!-- Input 3: Phone Number -->
+        <div class="form-group">
+          <label for="edit-contact-phone" class="form-label">Phone Number *</label>
+          <input 
+            type="tel" 
+            id="edit-contact-phone" 
+            name="phone" 
+            class="form-control" 
+            required
+          >
+          <span id="edit-phone-error" class="form-error-msg" aria-live="polite">Please enter a valid phone number (at least 10 digits).</span>
+        </div>
+
+        <!-- Input 4: Category Dropdown -->
+        <div class="form-group">
+          <label for="edit-contact-category" class="form-label">Category *</label>
+          <select id="edit-contact-category" name="category" class="form-control" required>
+            <option value="Work">Work</option>
+            <option value="Personal">Personal</option>
+            <option value="Family">Family</option>
+            <option value="Other">Other</option>
+          </select>
+          <span id="edit-category-error" class="form-error-msg" aria-live="polite">Please select a category.</span>
+        </div>
+
+        <!-- Input 5: Company Name -->
+        <div class="form-group">
+          <label for="edit-contact-company" class="form-label">Company / Affiliation *</label>
+          <input 
+            type="text" 
+            id="edit-contact-company" 
+            name="company" 
+            class="form-control" 
+            required
+          >
+          <span id="edit-company-error" class="form-error-msg" aria-live="polite">Please enter a company name (at least 2 characters).</span>
+        </div>
+
+        <!-- Input 6: Status Toggle (Specific to Admin Operations) -->
+        <div class="form-group">
+          <label for="edit-contact-status" class="form-label">Status *</label>
+          <select id="edit-contact-status" name="status" class="form-control" required>
+            <option value="Active">Active (Visible to users)</option>
+            <option value="Archived">Archived (Hidden from users)</option>
+          </select>
+          <span id="edit-status-error" class="form-error-msg" aria-live="polite">Please select a record status.</span>
+        </div>
+
+        <!-- Input 7: Notes -->
+        <div class="form-group">
+          <label for="edit-contact-notes" class="form-label">Notes (Optional)</label>
+          <textarea 
+            id="edit-contact-notes" 
+            name="notes" 
+            class="form-control" 
+            maxlength="200"
+          ></textarea>
+          <span id="edit-notes-error" class="form-error-msg" aria-live="polite">Notes cannot exceed 200 characters.</span>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <button type="button" id="cancel-edit-btn" class="btn btn-secondary">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+
+
+  <!-- Admin Panel JavaScript Logic -->
+  <script src="admin.js" defer></script>
+</body>
+</html>
